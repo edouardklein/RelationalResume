@@ -1,0 +1,270 @@
+/*General definitions*/
+#myface{
+  width:130px;
+  height:169px;
+  position:absolute;
+  right:0;
+}
+#myface_container{
+  padding-bottom:189px;
+}
+#variousaccounts{
+  margin-top:.5em;
+}
+.container{
+  max-width:970px;
+  border-radius: 10px;
+  border-width: 10px;
+  border-style: solid;
+  border-color: rgb(103, 115, 162);
+  background-color: #ededed;
+  padding-bottom:1em;
+}
+h2{
+  float:left;
+  background-color:rgb(103, 115, 162);
+  padding:5px;
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+  margin-left:-15px;
+  font-size:27px;
+}
+h3{
+  margin-top:-.65em;
+  float:left;
+  background-color:#ededed;
+  font-size:20px;
+}
+.date{
+  float:right;
+  margin-top:-.8em;
+  background-color:#555555;
+  color:#FFFFFF;
+  border-radius:.2em;
+  padding:.2em;
+}
+h3,.date{
+  margin-bottom:0;
+}
+.abstract{
+  color:#A4A4A4;
+  font-size:.8em;
+  margin-top:-.5em;
+}
+.full_text{
+  padding-left:20px;
+  margin-left:-20px;
+  border-left-width:1px;
+  border-left-style:dashed;
+  border-left-color:gray;
+  margin-right:20px;
+
+}
+/*Element list popup*/
+#toggling_list_container{
+  position: absolute;
+  top: 169px;;
+  right: 0px;
+}
+#toggling_list_container > h2{
+  float:none; /*Cancelling previous formatting of h2 tags*/
+  border-top-right-radius:0px;
+  border-bottom-right-radius:0px;
+
+  margin:0;
+  font-size: 20px;
+}
+#toggling_list_container ul {
+  display:none;
+/*DEBUG  display:block;
+  position:absolute;
+  z-index:1000;
+  background-color:rgb(103, 115, 162);
+  padding:0;
+  margin:0;
+  list-style-type: none;*/
+}
+#toggling_list_container:hover ul {
+  display:block;
+}
+#toggling_list a{
+  z-index:1000;
+}
+/*Elements Visibility*/
+.hidden{
+  display:none;
+}
+.diploma,.skill{
+  margin-top:1em;
+}
+.diploma_content,.skill_content{
+  margin-left:40px;
+  border-top-width:1px;
+  border-top-style:dashed;
+  border-top-color:gray;
+  margin-right:20px;
+}
+.caret-up-down{
+  color:rgb(103, 115, 162);
+width: 40px;
+font-size: 20px;
+text-align: center;
+float: left;
+margin-top: -.5em;
+height: 30px;
+}
+.diploma .fa-caret-square-o-down, .skill .fa-caret-square-o-down{
+  display:none;
+}
+.diploma .fa-caret-square-o-up, .skill .fa-caret-square-o-up{
+  display:block;
+}
+.full_text{
+  display:block;
+}
+.collapsed .fa-caret-square-o-up{
+  display:none;
+}
+.collapsed .fa-caret-square-o-down{
+  display:block;
+}
+.collapsed .full_text{
+  display:none;
+}
+
+/*Keywords popup*/
+.keywords{
+  position:relative;
+}
+.keywords a ~ .keyword_list{
+  position:absolute;
+  top:1em;
+  left:0px;
+  display:none;
+}
+.keywords:hover a ~.keyword_list{
+  display:block;
+  /*background-color:grey;*/
+  z-index:1000;
+  /*padding:.5em;*/
+}
+.keywords:hover a ~.keyword_list a{
+  white-space:nowrap;
+}
+
+
+
+@media print {
+
+.col-sm-1, .col-sm-2, .col-sm-3, .col-sm-4, .col-sm-5, .col-sm-6, .col-sm-7, .col-sm-8, .col-sm-9, .col-sm-10, .col-sm-11, .col-sm-12 {
+  float: left;
+}
+.col-sm-12 {
+  width: 100%;
+}
+.col-sm-11 {
+  width: 91.66666666666666%;
+}
+.col-sm-10 {
+  width: 83.33333333333334%;
+}
+.col-sm-9 {
+  width: 75%;
+}
+.col-sm-8 {
+  width: 66.66666666666666%;
+}
+.col-sm-7 {
+  width: 58.333333333333336%;
+}
+.col-sm-6 {
+  width: 50%;
+}
+.col-sm-5 {
+  width: 41.66666666666667%;
+}
+.col-sm-4 {
+  width: 33.33333333333333%;
+ }
+ .col-sm-3 {
+   width: 25%;
+ }
+ .col-sm-2 {
+   width: 16.666666666666664%;
+ }
+ .col-sm-1 {
+  width: 8.333333333333332%;
+ }
+#snailmailandweb{
+  width:26%;
+}
+#variousaccounts{
+ width:36%;
+}
+#myface_container{
+  width:38%;
+}
+#education{
+  margin-top:-1.5em;
+}
+#skills{
+
+}
+#experience{
+
+}
+body{
+  font-size:11px;
+}
+h1{
+  font-size:22px;
+}
+h2{
+  float:left;
+  background-color:rgb(103, 115, 162);
+  -webkit-print-color-adjust: exact;
+  padding:5px;
+  border-top-right-radius:5px;
+  border-bottom-right-radius:5px;
+  margin-left:-15px;
+  font-size:16px;
+}
+h3{
+  margin-top:-.65em;
+  float:left;
+  background-color:#ededed;
+  font-size:15px;
+}
+.date{
+  float:right;
+  margin-top:-.8em;
+  background-color:#555555;
+  -webkit-print-color-adjust: exact;
+  color:#FFFFFF;
+  border-radius:.2em;
+  padding-top:.05em;
+  padding-bottom:.05em;
+  padding-left:.2em;
+  padding-roght:.2em;
+}
+a[href]:after {
+    content: none;
+  }
+.diploma .fa, .skill .fa{
+  color:rgb(103, 115, 162);
+width: 20px;
+font-size: 10px;
+text-align: center;
+float: left;
+margin-top: -.5em;
+height: 20px;
+}
+.diploma_content,.skill_content{
+  margin-left:20px;
+  border-top-width:1px;
+  border-top-style:dashed;
+  border-top-color:gray;
+  margin-right:20px;
+}
+
+  }
