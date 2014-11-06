@@ -24,6 +24,8 @@ function makeCollapsed(target){
   item.className = "list-group-item list-group-item-info";
   item = removeListeners(item);
   item.addEventListener('click', makeTargetFull);
+    //Change the graph's node color
+  var node = document.querySelector('#svg_'+target.id+' ellipse').setAttribute("fill","#d9edf7");
 }
 function makeInvisible(target){
   //Change the section's class
@@ -38,6 +40,8 @@ function makeInvisible(target){
   item.className = "list-group-item list-group-item-danger";
   item = removeListeners(item);
   item.addEventListener('click', makeTargetCollapsed);
+    //Change the graph's node color
+  var node = document.querySelector('#svg_'+target.id+' ellipse').setAttribute("fill","#f2dede");
 }
 function makeFull(target){
   console.log("makeTargetFull called on");
@@ -54,6 +58,8 @@ function makeFull(target){
   item.className = "list-group-item list-group-item-success";
   item = removeListeners(item);
   item.addEventListener('click', makeTargetInvisible);
+  //Change the graph's node color
+  var node = document.querySelector('#svg_'+target.id+' ellipse').setAttribute("fill","#dff0d8");
 }
 function toggleCollapse(e){
   e = e || window.event;
@@ -69,12 +75,19 @@ function toggleCollapse(e){
   console.log("toggleCollapse called !")
   console.log(target)
 }
+function findIdFromSVGLink(e){
+  return e.parentNode.getAttribute("xlink:href").substring(11)
+}
 function findIdFromLink(e){
   e = e || window.event;
   var el = e.target || e.srcElement;
   console.log("Find id from Link");
   console.log(el);
-  return el.dataset.target.substring(1);
+  if(el.tagName == "text"){
+    return findIdFromSVGLink(el)
+  }else{
+    return el.dataset.target.substring(1);
+  }
 }
 function makeTargetCollapsed(e){
    target = document.getElementById(findIdFromLink(e));
@@ -94,7 +107,7 @@ function addListenerToLinks(el){
   for (var i = 0; i < el.childNodes.length; i++) {
      addListenerToLinks(el.childNodes[i]);
   }
-  if(el.tagName == "A"){
+  if(el.tagName == "A" || el.tagName == "a"){
     el.addEventListener('click', makeTargetFull);
   }
 }
@@ -162,6 +175,9 @@ window.onload = function()
   btn.addEventListener( 'click', makeAllCollapsed );
   var btn = document.getElementById("hide_all");
   btn.addEventListener( 'click', makeAllInvisible );
+
+  var svg = document.querySelector("svg");
+  addListenerToLinks(svg);
 
   var list = document.getElementById("toggling_list");
   var elements = allCVElements();

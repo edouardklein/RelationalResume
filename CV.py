@@ -1,5 +1,7 @@
 import re
 import ast
+import subprocess
+
 with open("CV.list","r",encoding="utf-8") as f:
     CV = ast.literal_eval(f.read())
 
@@ -89,7 +91,7 @@ class CV_item:
             if self.type != "external_ressource":
                 self.abstract = "<p>FIXME</p>"
                 print("Empty abstract")
-        self.anchor = self.short_name.lower().replace(' ','').replace("'","").replace(',','').replace('/','')
+        self.anchor = self.short_name.lower().replace(' ','').replace("'","").replace(',','').replace('/','').replace('+','p')
         try:
             self.target = d["target"] #for type external_ressource
         except KeyError:
@@ -209,21 +211,12 @@ experiences = [x for x in CV_items if x.type == "experience"]
 experiences.sort(key=lambda x:x.sort_key)
 experiences.reverse()
 
-with open('CV.html','w',encoding='utf-8') as f:
-    f.write(CV_header)
-    f.write('<h2 id="education">Formation, diplômes et récompenses</h2><div style="clear:both;"></div>')
-    f.write("\n".join([diploma_template.format(**x.__dict__) for x in diplomas]))
-    f.write('<h2 id="skills">Compétences</h2><div style="clear:both;"></div>')
-    f.write("\n".join([skill_template.format(**x.__dict__) for x in skills]))
-    f.write('<h2 id="experience">Expérience</h2><div style="clear:both;"></div>')
-    f.write("\n".join([diploma_template.format(**x.__dict__) for x in experiences]))
-
-    f.write(CV_footer)
-
 #Graph generation using the dot language
 edges = {}
+nodes = {}
 for kw in KEYWORDS:
     to_item = find_CV_item(kw)
+    nodes['"'+to_item.short_name+'"']=to_item.anchor
     for target in map(lambda x:x.canonical_name,to_item.links_to):
         from_item = find_CV_item(target)
         try:
@@ -232,7 +225,24 @@ for kw in KEYWORDS:
             edges['"'+from_item.short_name+'"->"'+to_item.short_name+'"'] = 1
 
 with open('CV.dot','w',encoding='utf-8') as f:
-    f.write("digraph G {")
+    f.write('digraph G {')
+    for node in nodes.keys():
+        f.write(node+' [href="index.html#'+nodes[node]+'", id="svg_'+nodes[node]+'" target="_top"];\n')
     for edge in edges.keys():
         f.write(edge+' [weight='+str(edges[edge])+'];\n')
     f.write("}")
+
+
+with open('index.html','w',encoding='utf-8') as f:
+    f.write(CV_header)
+    f.write('<h2 id="education">Formation, diplômes et récompenses</h2><div style="clear:both;"></div>')
+    f.write("\n".join([diploma_template.format(**x.__dict__) for x in diplomas]))
+    f.write('<h2 id="skills">Compétences</h2><div style="clear:both;"></div>')
+    f.write("\n".join([skill_template.format(**x.__dict__) for x in skills]))
+    f.write('<h2 id="experience">Expérience</h2><div style="clear:both;"></div>')
+    f.write("\n".join([diploma_template.format(**x.__dict__) for x in experiences]))
+    f.write('<h2 id="graph">Sous forme graphique...</h2><div style="clear:both;"></div>')
+    f.write(str(subprocess.Popen("dot CV.dot -T svg", shell=True, stdout=subprocess.PIPE).stdout.read(),encoding="utf-8"))
+
+    f.write(CV_footer)
+
