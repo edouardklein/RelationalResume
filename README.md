@@ -24,6 +24,10 @@ Create file `CV.list`, formatted as a Python list of dictionaries. Each dictiona
 
 Generate the contents of the file `email.js` from http://www.jottings.com/obfuscator/ (you don't want your unencrypted email on a web page).
 
+Modify the `upload` rule of the Makefile if you wish to make your résumé available online.
+
+The default (and as of now only) HTML theme for the résumé uses bootstrap and font-awesome. Install those in the RelationalResume directory (see `CV_header.html` for the paths).
+
 
 ## CV.list syntax
 ### Example
